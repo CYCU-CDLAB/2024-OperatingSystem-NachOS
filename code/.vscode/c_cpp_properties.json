@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "includePath": [
+                "${workspaceRoot}",
+                "${workspaceRoot}/filesys",
+                "${workspaceRoot}/lib",
+                "${workspaceRoot}/machine",
+                "${workspaceRoot}/network",
+                "${workspaceRoot}/test",
+                "${workspaceRoot}/threads",
+                "${workspaceRoot}/userprog"
+            ],
+            "compilerPath": "/usr/bin/g++",
+            "defines": [
+                "FILESYS_STUB",
+                "RDATA",
+                "SIM_FIX",
+                "CHANGED",
+                "LINUX",
+                "x86"
+            ],
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
