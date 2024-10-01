@@ -10,8 +10,9 @@ If you see `qemu: uncaught target signal 11 (Segmentation fault) - core dumped`,
 
 ```bash
 # Download the source code if you haven't
-git clone https://github.com/CYCU-CDLAB/2024-OperatingSystem-NachOS.git
-cd 2024-OperatingSystem-NachOS
+git clone https://github.com/CYCU-CDLAB/2024-OperatingSystem-NachOS.git nachos
+# You can rename the file if you want
+cd nachos
 # Build the docker image
 docker build -t nachos .
 ```
@@ -25,7 +26,7 @@ Tested environments:
 
 ```bash
 # Get into the directory if you are not in it
-cd NachOS-4.0
+cd nachos
 # Run the docker container with the source code mounted
 docker run --rm -v $(pwd):/nachos -it --platform=linux/amd64 nachos
 ```
