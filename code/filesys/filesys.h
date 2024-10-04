@@ -65,16 +65,60 @@ class FileSystem {
         return new OpenFile(fileDescriptor);
     }
 
-    //  The OpenAFile function is used for kernel open system call
-    /*  OpenFileId OpenAFile(char *name) {
-        }
-        int WriteFile(char *buffer, int size, OpenFileId id){
-        }
-        int ReadFile(char *buffer, int size, OpenFileId id){
-        }
-        int CloseFile(OpenFileId id){
-        }
-    */
+    /* Lab - System Call - OpenAFile() - Start */
+    OpenFileId OpenAFile(char *name) {
+        OpenFileId id ;
+
+        for ( id = 0 ; id < 20 ; ++id ) {
+            if ( !OpenFileTable[id] ) break;
+        } // for()
+        
+        if ( id == 20 ) return -1;
+        
+        OpenFile * fp = Open( name ) ;
+        if ( !fp ) return -1 ;
+        
+        OpenFileTable[id] = fp ;
+        return id ;
+    } // OpenAFile()
+    /* Lab - System Call - OpenAFile() - End */
+
+
+    /* Lab - System Call - ReadAFile() - Start */
+
+    int ReadAFile( char *buffer, int size, OpenFileId id ) {
+        if ( id < 0 || id >= 20 || !OpenFileTable[id] ) return -1 ;
+        int ret = OpenFileTable[id]->Read(buffer, size) ;
+        if (!ret) return -1 ;
+        return ret ;
+    } // ReadAFile()
+    
+    /* Lab - System Call - ReadAFile() - End */
+
+
+    /* Lab - System Call - WriteAFile() - Start */
+
+    int WriteAFile( char *buffer, int size, OpenFileId id ){
+        if ( id < 0 || id >= 20 || !OpenFileTable[id] ) return -1 ;
+        int ret = OpenFileTable[id]->Write( buffer, size ) ;
+        if (!ret) return -1 ;
+        return ret;
+    } // WriteAFile()
+
+    /* Lab - System Call - WriteAFile() - End */
+
+    /* Lab - System Call - CloseAFile() - Start */
+
+    int CloseAFile(OpenFileId id){
+        if (id < 0 || id >= 20 || !OpenFileTable[id]) return -1;
+        
+        delete OpenFileTable[id] ;
+        OpenFileTable[id] = NULL ;
+        return 1 ;
+    } // CloseAFile()
+
+    /* Lab - System Call - CloseAFile() - End */
+
 
     bool Remove(char *name) { return Unlink(name) == 0; }
 
